@@ -1,1 +1,5 @@
-# kotlin-algorithms
+# Kotlin-algorithms
+
+- Tree
+    - Traversals
+    
