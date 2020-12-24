@@ -28,27 +28,45 @@ data class BinarySearchTreeNode(
         return value==data
     }
 
-    fun remove(value:Int, parent:BinarySearchTreeNode) : Boolean{
+    fun search(value:Int) : BinarySearchTreeNode?{
+        if (value < data && left !=null) {
+            return left!!.search(value)
+        }
+        if(value > data && right!=null) {
+            return right!!.search(value)
+        }
+        if (value==data) {
+            return this
+        }else{
+            return null
+        }
+    }
+
+    fun remove(value:Int) : Boolean {
+        return remove(value, null)
+    }
+
+    fun remove(value:Int, parent:BinarySearchTreeNode?) : Boolean{
         if (value<data && left!=null){
             return left!!.remove(value,this)
         }else if(value<data){
             return false
         }else if(value>data && right != null){
-            return left!!.remove(value,this)
+            return right!!.remove(value,this)
         }else if (value>data){
             return false
         }else {
-            if (left == null && right==null && this == parent.left) {
+            if (left == null && right==null && this == parent?.left) {
                 parent.left = null
-            }else if (left == null && right==null && this==parent.right){
+            }else if (left == null && right==null && this==parent?.right){
                 parent.right = null
-            }else if(left!=null && right==null && this == parent.left){
+            }else if(left!=null && right==null && this == parent?.left){
                 parent.left = this.left
-            }else if(left!=null && right== null && this == parent.right){
+            }else if(left!=null && right== null && this == parent?.right){
                 parent.right = this.left
-            }else if (right!=null && left==null && this == parent.left) {
+            }else if (right!=null && left==null && this == parent?.left) {
                 parent.left = this.right
-            }else if(right!=null && left==null && this == parent.right) {
+            }else if(right!=null && left==null && this == parent?.right) {
                 parent.right = this.right
             }else{
                 data = right!!.min()
